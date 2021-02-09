@@ -1,0 +1,65 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(
+    135deg,
+    rgba(85, 179, 177, 0.7) 0%,
+    rgba(246, 192, 101, 0.7) 50%,
+    rgba(255, 255, 255, 0.7) 100%
+  );
+  animation: bg-animation 50s infinite;
+  background-size: 500%;
+  min-height: 100vh;
+}
+
+@keyframes bg-animation {
+  0% {
+    background-position: left;
+  }
+  50% {
+    background-position: right;
+  }
+  100% {
+    background-position: left;
+  }
+}
+
+.todo .contents {
+  border-radius: 5px;
+  border: 2px solid #555;
+  padding: 1.5rem;
+}
+
+svg {
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.react-logo {
+  animation: spin 4s linear infinite;
+  font-size: 2.5rem;
+  /* color: #61dafb; */
+  cursor: initial;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-animation {
+  animation: loading 1s linear infinite;
+  font-size: 1rem;
+  margin-right: 5px;
+  cursor: initial;
+}
+
+@keyframes loading {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.line-through {
+  text-decoration: line-through;
+}
