@@ -6,12 +6,27 @@ import Todos from './components/Todos';
 import Firebase from './Firebase';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const App = () => {
   const [title, setTitle] = useState('');
   const [loadingBtn, setLodingBtn] = useState(false);
   const [toggleAdd, setToggleAdd] = useState(false);
+  const [todos, setTodos] = useState();
+
+  // Get Todo
+  useEffect(() => {
+    const todoRef = Firebase.database().ref('todos');
+    todoRef.on('value', (item) => {
+      const todos = item.val();
+      const todoList = [];
+      for (let id in todos) {
+        todoList.push({ id, ...todos[id] });
+      }
+      // console.log(todoList);
+      setTodos(todoList);
+    });
+  }, []);
 
   // Add Todo
   const addTodo = (e) => {
@@ -24,7 +39,6 @@ const App = () => {
       return false;
     }
     setLodingBtn(true);
-    console.log(loadingBtn);
     const todo = {
       title: todoTitle,
       completed: false,
@@ -35,7 +49,27 @@ const App = () => {
       autoClose: 3000,
     });
     setLodingBtn(false);
+    setToggleAdd(false);
     setTitle('');
+  };
+
+  // Update todo
+  const handleCompleted = (todo) => {
+    // console.log(todo);
+    const todoRef = Firebase.database().ref('todos').child(todo.id);
+    todoRef.update({
+      completed: !todo.completed,
+    });
+  };
+
+  // Delete Todo
+  const handleDelete = (id) => {
+    // console.log(id);
+    const todoRef = Firebase.database().ref('todos').child(id);
+    todoRef.remove();
+    toast.success('Todo deleted successfully.', {
+      autoClose: 3000,
+    });
   };
 
   return (
@@ -55,7 +89,13 @@ const App = () => {
                   />
                 )}
                 <Search />
-                <Todos />
+                {todos && (
+                  <Todos
+                    todos={todos}
+                    handleDelete={handleDelete}
+                    handleCompleted={handleCompleted}
+                  />
+                )}
                 <ToastContainer />
               </div>
             </Col>
