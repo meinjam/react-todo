@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
 body {
   font-family: 'Montserrat', sans-serif;
   background: linear-gradient(
     135deg,
     rgba(85, 179, 177, 0.7) 0%,
     rgba(246, 192, 101, 0.7) 50%,
-    rgba(255, 255, 255, 0.7) 100%
+    rgba(246, 105, 142, 0.7) 100%
   );
   animation: bg-animation 50s infinite;
   background-size: 500%;
@@ -62,4 +64,42 @@ svg {
 
 .lin-through {
   text-decoration: line-through;
+}
+
+/* Loading Animation */
+
+.spinners {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.spinner2 {
+  display: flex;
+}
+.spinner2 .circle {
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 50%;
+  margin: 0 5px;
+  animation: scale 0.5s linear 0s infinite alternate;
+}
+.spinner2 .circle.one {
+  animation-delay: 0s;
+}
+.spinner2 .circle.two {
+  animation-delay: 0.2s;
+}
+.spinner2 .circle.three {
+  animation-delay: 0.4s;
+}
+
+@keyframes scale {
+  from {
+    transform: scale(0.2);
+  }
+  to {
+    transform: scale(1);
+  }
 }

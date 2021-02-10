@@ -3,10 +3,10 @@ import { IoIosRadioButtonOff } from 'react-icons/io';
 import { IoTrashOutline } from 'react-icons/io5';
 import { AiOutlineEdit } from 'react-icons/ai';
 
-const Todo = ({ todos, handleDelete, handleCompleted }) => {
+const Todo = ({ todos, handleDelete, handleCompleted, filterTodo }) => {
   return (
     <div>
-      {todos.map((todo) => (
+      {filterTodo.map((todo) => (
         <div
           key={todo.id}
           className='card d-flex justify-content-between p-3 flex-row'
@@ -34,7 +34,7 @@ const Todo = ({ todos, handleDelete, handleCompleted }) => {
             </p>
           </div>
           <div className='right d-flex'>
-            <AiOutlineEdit style={{ color: '#ff9300' }} />
+            {/* <AiOutlineEdit style={{ color: '#ff9300' }} /> */}
             <IoTrashOutline
               onClick={() => handleDelete(todo.id)}
               style={{ color: '#ff2825' }}

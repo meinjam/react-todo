@@ -7,12 +7,14 @@ import Firebase from './Firebase';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from 'react';
+import Loader from './components/Loader';
 
 const App = () => {
   const [title, setTitle] = useState('');
   const [loadingBtn, setLodingBtn] = useState(false);
   const [toggleAdd, setToggleAdd] = useState(false);
-  const [todos, setTodos] = useState();
+  const [todos, setTodos] = useState([]);
+  const [search, setSearch] = useState('');
 
   // Get Todo
   useEffect(() => {
@@ -72,6 +74,11 @@ const App = () => {
     });
   };
 
+  // Filter Todo
+  const filterTodo = todos.filter((todo) => {
+    return todo.title.toLowerCase().includes(search.toLowerCase());
+  });
+
   return (
     <div className='App'>
       <section className='py-5'>
@@ -88,14 +95,16 @@ const App = () => {
                     setTitle={setTitle}
                   />
                 )}
-                <Search />
+                <Search search={search} setSearch={setSearch} />
                 {todos && (
                   <Todos
                     todos={todos}
                     handleDelete={handleDelete}
                     handleCompleted={handleCompleted}
+                    filterTodo={filterTodo}
                   />
                 )}
+                {!todos && <Loader />}
                 <ToastContainer />
               </div>
             </Col>
